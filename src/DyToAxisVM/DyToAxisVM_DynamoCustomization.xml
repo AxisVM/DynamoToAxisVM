@@ -11,6 +11,7 @@
   </namespaces>
   <classes>
     <!--Remap Class Names-->
-    <class name="DyToAxisVM.AxMember" shortname="Member"/>
+    <class name="AxisVM.AxModel" shortname="Model"/>
+    <class name="AxisVM.AxMember" shortname="Member"/>
   </classes>
 </doc>

@@ -3,11 +3,106 @@ using System.Collections;
 using System.Collections.Generic;
 using AxisVM;
 using Autodesk.DesignScript.Geometry;
-using System.Text.RegularExpressions;
 using Autodesk.DesignScript.Runtime;
 
 namespace DyToAxisVM
-{   
+{
+    /// <summary>
+    /// Axis VM model
+    /// </summary>
+    public class AxModel
+    {
+        public AxisVMApplication AxApp = new AxisVMApplication();
+        public AxisVMModels AxModels = new AxisVMModels();
+        public AxisVMModel AxModel_ = new AxisVMModel();
+        public AxisVMNodes AxNodes = new AxisVMNodes();
+        public AxisVMLines AxLines = new AxisVMLines();
+        public AxisVMLine AxLine = new AxisVMLine();
+        [SupressImportIntoVM]
+        public ELineGeomType geomType = new ELineGeomType();
+        public RLineGeomData geomData = new RLineGeomData();
+        public AxisVMCalculation AxCalc = new AxisVMCalculation();
+        public AxisVMMaterials AxMaterials = new AxisVMMaterials();
+        public AxisVMMaterial AxMaterial = new AxisVMMaterial();
+        [SupressImportIntoVM]
+        public ENationalDesignCode code = new ENationalDesignCode();
+        public AxisVMCrossSections AxCrossSections = new AxisVMCrossSections();
+        public AxisVMCrossSection AxCrossSection = new AxisVMCrossSection();
+        public AxisVMMembers AxisMembers = new AxisVMMembers();
+        public AxisVMMembers AxMembers = new AxisVMMembers();
+        public AxisVMMember AxMember = new AxisVMMember();
+        public AxisVMLoadCases AxLoadCases = new AxisVMLoadCases();
+        public AxisVMLoadCombinations AxLoadComb = new AxisVMLoadCombinations();
+        public AxisVMLoads AxLoads = new AxisVMLoads();
+        public AxisVMResults AxResults = new AxisVMResults();
+        public AxisVMWindows AxWindows = new AxisVMWindows();
+        public AxisVMNodesSupports AxNodeSupport = new AxisVMNodesSupports();
+
+        public List<string> Mstrs = new List<string>(); // list of material names already loaded
+        public List<int> MIDs = new List<int>(); // list of material IDs already loaded
+        public List<string> CSstrs = new List<string>(); // list of sect names already loaded
+        public List<int> CSIDs = new List<int>(); // list of sect IDs already loaded
+
+        public List<Point> pts = new List<Point>();
+        public List<Line> lns = new List<Line>();
+        public List<int> sIDs = new List<int>();
+        public List<int> eIDs = new List<int>();
+        public List<int[]> membProps = new List<int[]>(); // csID, secID, typeID
+        public List<int[]> nodeloadIDs = new List<int[]>(); // load case and loaded node
+        public List<bool> sw = new List<bool>(); // line IDs for which self weight was defined
+        public List<int> supNodeIDs = new List<int>();
+
+        internal AxModel()
+        {
+
+            //Show AxisVM GUI and setup AxisVM to remain opened when COM client finished
+            AxApp.CloseOnLastReleased = ELongBoolean.lbFalse; //Axis doesn't exit when script finishes
+            AxApp.AskCloseOnLastReleased = ELongBoolean.lbFalse; //Show close dialog before exit
+            AxApp.Visible = ELongBoolean.lbFalse; //set on lbFalse can improve speed
+
+            //Create new model
+            AxModels = AxApp.Models;
+            AxModel_ = AxModels.Item[AxModels.New()];
+
+            //create geometry
+            AxNodes = AxModel_.Nodes;
+            AxLines = AxModel_.Lines;
+
+            //material, section
+            code = ENationalDesignCode.ndcEuroCode; //currently limited to Eurocode
+            AxMaterials = AxModel_.Materials;
+            AxCrossSections = AxModel_.CrossSections;
+
+            //support
+            AxNodeSupport = AxModel_.NodesSupports;
+
+            //load
+            AxLoadCases = AxModel_.LoadCases;
+            AxLoads = AxModel_.Loads;
+
+            //calculation
+            AxCalc = AxModel_.Calculation;
+            AxResults = AxModel_.Results;
+            AxWindows = AxModel_.Windows;
+        }
+
+        /// <summary>
+        /// Starts new AxisVM model. After the export, if AxisVM is closed manually, this model is deleted. To start a new model, delete this node and add a new StartAxModel node.
+        /// </summary>
+        public static AxModel StartAxModel()
+        {
+            return new AxModel();
+        }
+
+        //event AxisVM.IAxisVMModelsEvents_ModelChangedEventHandler ModelChanged
+        //Member of AxisVM.IAxisVMModelsEvents_Event
+        private void IAxisVMModelsEvents_ModelChanged(object sender, System.EventArgs e)
+        {
+            // Add your form load event handling code here.
+        }
+
+    }
+
     /// <summary>
     /// Structural member defined by a line, a cross-section, material, and type (truss, beam, rib).
     /// </summary>
@@ -47,7 +142,6 @@ namespace DyToAxisVM
     /// </summary>
     public class ExportOptions
     {
-
         /// <summary>
         /// Private methods, such as this constructor,
         /// will not be visible in the Dynamo library.
@@ -57,88 +151,101 @@ namespace DyToAxisVM
         /// <summary>
         /// Send (export) lines to AxisVM if b=true.
         /// </summary>
+        /// <param name="AxModel">Model to export.</param>
         /// <param name="b">Export starts if true.</param>
-        /// <param name="line">Lines to export.</param>
-        /// <returns>true if successful</returns>
+        /// <param name="ln">List of lines to export.</param>
+        /// <returns>exported model AxModel if export was successful</returns>
+        /// <returns>Points in AxModel</returns>
+        /// <returns>Lines in AxModel</returns>
         /// <search>axisvm, export, line</search>
-        public static Boolean SendLines(Boolean b, List<Line> ln)
+        [MultiReturn(new[] { "AxModel", "Points", "Lines" })]
+        public static IDictionary SendLines(AxModel AxModel, Boolean b, List<Line> ln)
         {
             if (b == true)
             {
-                AxisVMApplication AxApp = new AxisVMApplication();
-                AxisVMModels AxModels = new AxisVMModels();
-                 AxisVMModel AxModel = new AxisVMModel();
-                AxisVMNodes AxNodes = new AxisVMNodes();
-                AxisVMLines AxLines = new AxisVMLines();
-                AxisVMLine AxLine = new AxisVMLine();
-                ELineGeomType geomType = new ELineGeomType();
-                RLineGeomData geomData = new RLineGeomData();
-
-                //Show AxisVM GUI and setup AxisVM to remain opened when COM client finished
-                AxApp.CloseOnLastReleased = ELongBoolean.lbFalse; //Axis doesn't exit when script finishes
-                AxApp.AskCloseOnLastReleased = ELongBoolean.lbFalse; //Show close dialog before exit
-                AxApp.Visible = ELongBoolean.lbFalse; //set on lbFalse can improve speed
-
-                //Create new model
-                AxModels = AxApp.Models;
-                AxModel = AxModels.Item[AxModels.New()];
-
-                //create nodes
-                AxNodes = AxModel.Nodes;
-
-                List<Point> pt = new List<Point>();
+                AxModel.AxModel_.BeginUpdate();
                 Point newPt = Point.ByCoordinates(0, 0, 0);
-                for (int i = 0; i < ln.Count; i++)
-                {
-                    if (ln[i].Length > 0)
-                    {
-                        newPt = ln[i].StartPoint;
-                        if (Extra.GetPointID(pt, newPt, 0.001) == -1)
-                        {
-                            pt.Add(newPt);
-                        }
-                        newPt = ln[i].EndPoint;
-                        if (Extra.GetPointID(pt, newPt, 0.001) == -1)
-                        {
-                            pt.Add(newPt);
-                        }
-                    }
-                }
-                for (int i = 0; i < pt.Count; i++)
-                {
-                    AxNodes.Add(pt[i].X, pt[i].Y, pt[i].Z);
-                }
-
-                //create lines, elements
-                AxLines = AxModel.Lines;
+                int ptId = -1;
                 RPoint3d exc = new RPoint3d { x = 0, y = 0, z = 0 };
-                int IDs = -1;
-                int IDe = -1;
                 int notValidLineCount = 0;
+                Boolean bModify = false;
+                if (AxModel.lns.Count > 0) { bModify = true; }
+
                 for (int i = 0; i < ln.Count; i++)
                 {
                     if (ln[i].Length > 0)
                     {
-                        IDs = Extra.GetPointID(pt, ln[i].StartPoint, 0.001);
-                        IDe = Extra.GetPointID(pt, ln[i].EndPoint, 0.001);
-                        if ((IDs >= 0) && (IDe >= 0))
+                        if (bModify)
                         {
-                            AxLines.Add(IDs, IDe, geomType, geomData);
-                            AxLine = AxLines.Item[i + 1 - notValidLineCount];
+                            // modify existing line
+                            newPt = ln[i].StartPoint;
+                            ptId = AxModel.sIDs[i];
+                            if (ptId != -1)
+                            {
+                                RPoint3d aPt = new RPoint3d { x = newPt.X, y = newPt.Y, z = newPt.Z };
+                                AxModel.AxNodes.SetNodeCoord(ptId, aPt);
+                                AxModel.pts[ptId - 1] = newPt;
+                                AxModel.lns[i] = ln[i];
+                            }
+                            newPt = ln[i].EndPoint;
+                            ptId = AxModel.eIDs[i];
+                            if (ptId != -1)
+                            {
+                                RPoint3d aPt = new RPoint3d { x = newPt.X, y = newPt.Y, z = newPt.Z };
+                                AxModel.AxNodes.SetNodeCoord(ptId, aPt);
+                                AxModel.pts[ptId - 1] = newPt;
+                                AxModel.lns[i] = ln[i];
+                            }
                         }
-                        else return false;
+                        else
+                        {
+                            //create new line                         
+                            newPt = ln[i].StartPoint;
+                            if (Extra.GetPointID(AxModel.pts, newPt, 0.001) == -1)
+                            {
+                                AxModel.pts.Add(newPt);
+                                AxModel.AxNodes.Add(newPt.X, newPt.Y, newPt.Z); // add new points to Axis
+                            }
+                            newPt = ln[i].EndPoint;
+                            if (Extra.GetPointID(AxModel.pts, newPt, 0.001) == -1)
+                            {
+                                AxModel.pts.Add(newPt);
+                                AxModel.AxNodes.Add(newPt.X, newPt.Y, newPt.Z); // add new points to Axis
+                            }
+                            AxModel.sIDs.Add(Extra.GetPointID(AxModel.pts, ln[i].StartPoint, 0.001));
+                            AxModel.eIDs.Add(Extra.GetPointID(AxModel.pts, ln[i].EndPoint, 0.001));
+                            if ((AxModel.sIDs[i] >= 0) && (AxModel.eIDs[i] >= 0))
+                            {
+                                AxModel.AxLines.Add(AxModel.sIDs[i], AxModel.eIDs[i], AxModel.geomType, AxModel.geomData);
+                                AxModel.AxLine = AxModel.AxLines.Item[i + 1 - notValidLineCount];
+                                AxModel.lns.Add(ln[i]);
+                            }
+                        }
                     }
                     else { notValidLineCount++; }
                 }
-                newPt.Dispose();
 
-                AxApp.Visible = ELongBoolean.lbTrue;
-                AxApp.BringToFront();
+                //todo: endupdate  only if no analysis or if there is analysis results available, it should be deleted
+                AxModel.AxModel_.EndUpdate();
 
-                return true;
+                AxModel.AxApp.Visible = ELongBoolean.lbTrue;
+                AxModel.AxApp.BringToFront();
+
+
+                return new Dictionary<object, object>()
+                {
+                    {"AxModel", AxModel},
+                    {"Points", AxModel.pts},
+                    {"Lines", AxModel.lns},
+                };
             }
 
-            return false;
+            return new Dictionary<object, object>()
+            {
+                 {"AxModel", AxModel},
+                 {"Points", null},
+                 {"Lines", null},
+            };
 
         }
 
@@ -147,225 +254,170 @@ namespace DyToAxisVM
         /// 
         /// Each structural member should have a cross-section, material and element type (truss, beam, or rib).
         /// </summary>
+        /// <param name="AxModel">Model to export.</param>
         /// <param name="b">Export starts if true.</param>
-        /// <param name="AxMember">AxisVM structural member</param>
-        /// <returns>true if successful</returns>
+        /// <param name="axm">List of AxisVM structural members to export</param>
+        /// <returns>exported model AxModel if export was successful</returns>
+        /// <returns>Points in AxModel</returns>
+        /// <returns>Lines in AxModel</returns>
         /// <search>axisvm, export, member</search>
-        public static Boolean SendMembers(Boolean b, List<AxMember> axm)
+        [MultiReturn(new[] { "AxModel", "Points", "Lines"})]
+        public static IDictionary SendMembers(AxModel AxModel, Boolean b, List<AxMember> axm)
         {
+            bool propChanged = false;
             if (b == true)
             {
-                AxisVMApplication AxApp = new AxisVMApplication();
-                AxisVMModels AxModels = new AxisVMModels();
-                AxisVMModel AxModel = new AxisVMModel();
-                AxisVMMaterials AxMaterials = new AxisVMMaterials();
-                AxisVMMaterial AxMaterial = new AxisVMMaterial();
-                ENationalDesignCode code = new ENationalDesignCode();
-                AxisVMCrossSections AxCrossSections = new AxisVMCrossSections();
-                AxisVMCrossSection AxCrossSection = new AxisVMCrossSection();
-                AxisVMNodes AxNodes = new AxisVMNodes();
-                AxisVMLines AxLines = new AxisVMLines();
-                AxisVMLine AxLine = new AxisVMLine();
-                ELineGeomType geomType = new ELineGeomType();
-                RLineGeomData geomData = new RLineGeomData();
-                AxisVMMembers AxisMembers = new AxisVMMembers();
-                AxisVMNodalSupports AxNodalSupports = new AxisVMNodalSupports();
-                AxisVMMembers AxMembers = new AxisVMMembers();
-                AxisVMMember AxMember = new AxisVMMember();
-                AxisVMLoadCases AxLoadCases = new AxisVMLoadCases();
-                AxisVMLoadCombinations AxLoadComb = new AxisVMLoadCombinations();
-                AxisVMLoads AxLoads = new AxisVMLoads();
-
-                //Show AxisVM GUI and setup AxisVM to remain opened when COM client finished
-                AxApp.CloseOnLastReleased = ELongBoolean.lbFalse; //Axis doesn't exit when script finishes
-                AxApp.AskCloseOnLastReleased = ELongBoolean.lbFalse; //Show close dialog before exit
-                AxApp.Visible = ELongBoolean.lbFalse; //set on lbFalse can improve speed
-
-                //Create new model
-                AxModels = AxApp.Models;
-                AxModel = AxModels.Item[AxModels.New()];
+                AxModel.AxModel_.BeginUpdate();
 
                 //Create material
-                code = ENationalDesignCode.ndcEuroCode; //currently limited to Eurocode
-                AxMaterials = AxModel.Materials;
                 int[] MatID = new int[axm.Count]; //material ID for each structural member
-                List<string> Mstrs = new List<string>(); // list of material names already loaded
-                List<int> MIDs = new List<int>(); // list of material IDs already loaded
                 StringComparison sc = StringComparison.CurrentCultureIgnoreCase;
-
                 for (int i = 0; i < axm.Count; i++)
                 {
                     string Mstr = axm[i].mat;
 
                     //chcek if this material has already been defined or not
                     bool alreadyDefined = false;
-                    for (int j = 0; j < Mstrs.Count; j++)
-                    { if (Mstrs[j].Equals(Mstr, sc)) { MatID[i] = MIDs[j]; alreadyDefined = true; } }
+                    for (int j = 0; j < AxModel.Mstrs.Count; j++)
+                    { if (AxModel.Mstrs[j].Equals(Mstr, sc)) { MatID[i] = AxModel.MIDs[j]; alreadyDefined = true; } }
 
                     if (!alreadyDefined)
                     {
-                        MatID[i] = AxMaterials.AddFromCatalog(code, Mstr);
-                        Mstrs.Add(Mstr);
-                        MIDs.Add(MatID[i]);
-                        AxMaterial = AxMaterials.Item[MatID[i]];
+                        MatID[i] = AxModel.AxMaterials.AddFromCatalog(AxModel.code, Mstr);
+                        AxModel.Mstrs.Add(Mstr);
+                        AxModel.MIDs.Add(MatID[i]);
+                        AxModel.AxMaterial = AxModel.AxMaterials.Item[MatID[i]];
                     }
                 }
 
                 //Add cross sections
-                AxCrossSections = AxModel.CrossSections;
                 int[] SectID = new int[axm.Count]; //section ID for each structural member
-                List<string> CSstrs = new List<string>(); // list of sect names already loaded
-                List<int> CSIDs = new List<int>(); // list of sect IDs already loaded
-
                 for (int i = 0; i < axm.Count; i++)
                 {
                     string CSstr = axm[i].cs;
 
                     //chcek if this cross-section has already been defined or not
                     bool alreadyDefined = false;
-                    for (int j = 0; j < CSstrs.Count; j++)
-                    { if (CSstrs[j].Equals(CSstr, sc)) { SectID[i] = CSIDs[j]; alreadyDefined = true; } }
+                    for (int j = 0; j < AxModel.CSstrs.Count; j++)
+                    { if (AxModel.CSstrs[j].Equals(CSstr, sc)) { SectID[i] = AxModel.CSIDs[j]; alreadyDefined = true; } }
 
                     if (!alreadyDefined)
                     {
-                        SectID[i] = Extra.GetCrossSection(CSstr, sc, AxCrossSections); //currently limited to pipe, I, Box
-                        CSstrs.Add(CSstr);
-                        CSIDs.Add(SectID[i]);
-                        AxCrossSection = AxCrossSections.Item[SectID[i]];
+                        SectID[i] = Extra.GetCrossSection(CSstr, sc, AxModel.AxCrossSections); //currently limited to pipe, I, Box
+                        AxModel.CSstrs.Add(CSstr);
+                        AxModel.CSIDs.Add(SectID[i]);
+                        AxModel.AxCrossSection = AxModel.AxCrossSections.Item[SectID[i]];
                     }
                 }
 
-                //create nodes
-                AxNodes = AxModel.Nodes;
-
-                List<Point> pt = new List<Point>();
+                //Geometry
                 Point newPt = Point.ByCoordinates(0, 0, 0);
-                for (int i = 0; i < axm.Count; i++)
-                {
-                    if (axm[i].ln.Length > 0)
-                    {
-                        newPt = axm[i].ln.StartPoint;
-                        if (Extra.GetPointID(pt, newPt, 0.001) == -1)
-                        {
-                            pt.Add(newPt);
-                        }
-                        newPt = axm[i].ln.EndPoint;
-                        if (Extra.GetPointID(pt, newPt, 0.001) == -1)
-                        {
-                            pt.Add(newPt);
-                        }
-                    }
-                }
-                for (int i = 0; i < pt.Count; i++)
-                {
-                    AxNodes.Add(pt[i].X, pt[i].Y, pt[i].Z);
-                }
-
-                //create lines, elements
-                AxLines = AxModel.Lines;
+                int ptId = -1;
                 RPoint3d exc = new RPoint3d { x = 0, y = 0, z = 0 };
-                int IDs = -1;
-                int IDe = -1;
                 int notValidLineCount = 0;
+                Boolean bModify = false;
+                if (AxModel.lns.Count > 0) { bModify = true; }
                 for (int i = 0; i < axm.Count; i++)
                 {
                     if (axm[i].ln.Length > 0)
                     {
-                        IDs = Extra.GetPointID(pt, axm[i].ln.StartPoint, 0.001);
-                        IDe = Extra.GetPointID(pt, axm[i].ln.EndPoint, 0.001);
-                        if ((IDs >= 0) && (IDe >= 0))
+                        if (bModify)
                         {
-                            AxLines.Add(IDs, IDe, geomType, geomData);
-                            AxLine = AxLines.Item[i + 1];
-                            string Tstr = axm[i].typ;
-                            if (Tstr.Equals("truss")) { AxLine.DefineAsTruss(MatID[i], SectID[i], ELineNonLinearity.lnlTensionAndCompression, 0); }
-                            else if (Tstr.Equals("beam")) { AxLine.DefineAsBeam(MatID[i], SectID[i], SectID[i], exc, exc); }
-                            else if (Tstr.Equals("rib")) { AxLine.DefineAsRib(MatID[i], SectID[i], SectID[i], exc, exc); };
+                            // modify existing line
+                            newPt = axm[i].ln.StartPoint;
+                            ptId = AxModel.sIDs[i];
+                            if (ptId != -1)
+                            {
+                                RPoint3d aPt = new RPoint3d { x = newPt.X, y = newPt.Y, z = newPt.Z };
+                                AxModel.AxNodes.SetNodeCoord(ptId, aPt);
+                                AxModel.pts[ptId - 1] = newPt;
+                                AxModel.lns[i] = axm[i].ln;
+                            }
+                            newPt = axm[i].ln.EndPoint;
+                            ptId = AxModel.eIDs[i];
+                            if (ptId != -1)
+                            {
+                                RPoint3d aPt = new RPoint3d { x = newPt.X, y = newPt.Y, z = newPt.Z };
+                                AxModel.AxNodes.SetNodeCoord(ptId, aPt);
+                                AxModel.pts[ptId - 1] = newPt;
+                                AxModel.lns[i] = axm[i].ln;
+                            }
+                            if (AxModel.membProps[i] != new int[] { SectID[i], MatID[i], 0 })
+                            {
+                                AxModel.AxLine = AxModel.AxLines.Item[i + 1 - notValidLineCount];
+                                string Tstr = axm[i].typ;
+                                if (Tstr.Equals("truss")) { AxModel.AxLine.DefineAsTruss(MatID[i], SectID[i], ELineNonLinearity.lnlTensionAndCompression, 0); }
+                                else if (Tstr.Equals("beam")) { AxModel.AxLine.DefineAsBeam(MatID[i], SectID[i], SectID[i], exc, exc); }
+                                else if (Tstr.Equals("rib")) { AxModel.AxLine.DefineAsRib(MatID[i], SectID[i], SectID[i], exc, exc); }
+                            }
                         }
-                        else return false;
-                    }
-                    else { notValidLineCount++; }
-                }
-                newPt.Dispose();
-
-                AxApp.Visible = ELongBoolean.lbTrue;
-                AxApp.BringToFront();
-
-                return true;
-            }
-
-            return false;
-
-        }
-
-    }
-
-    [SupressImportIntoVM]
-    public class Extra
-    {
-        /// <summary>
-        /// get ID of point p in list L, return -1 if the point is not in the list
-        /// </summary>
-        public static int GetPointID(List<Point> L, Point p, double tol)
-        {
-            for (int i = 0; i < L.Count; i++)
-            {
-                if ((Math.Abs(L[i].X - p.X) < tol) & (Math.Abs(L[i].Y - p.Y) < tol) & (Math.Abs(L[i].Z - p.Z) < tol))
-                {
-                    return i + 1; //numbering in Axis starts with 1
-                }
-            }
-            return -1;
-        }
-
-        /// <summary>
-        /// return the cross-section family (e.g., I) of the used crooss-section (e.g. IPE 240)
-        /// </summary>
-        public static int GetCrossSection(string str, StringComparison cs, AxisVMCrossSections AxCs)
-        {
-            Regex regex1 = new Regex("X");
-            Regex regex2 = new Regex("x");
-            int res = -1;
-
-            if (str.StartsWith("IPE ", cs) || str.StartsWith("I ", cs) || str.StartsWith("HE ", cs) || str.StartsWith("HP ", cs) ||
-                str.StartsWith("HL ", cs) || str.StartsWith("HD ", cs) || str.StartsWith("IPN ", cs) || str.StartsWith("UB ", cs) ||
-                str.StartsWith("UC ", cs))
-            { res = AxCs.AddFromCatalog(ECrossSectionShape.cssI, str); }
-            else if (str.StartsWith("ROR", cs))
-            { res = AxCs.AddFromCatalog(ECrossSectionShape.cssPipe, str); }
-            else if (str.StartsWith("O ", cs) || str.StartsWith("RND ", cs) || str.StartsWith("ROND ", cs))
-            { res = AxCs.AddFromCatalog(ECrossSectionShape.cssCircle, str); }
-            else if (regex1.Matches(str, 0).Count == 2) // for boxes the format is always 100X5X5
-            { res = AxCs.AddFromCatalog(ECrossSectionShape.cssBox, str); }
-            else if (regex2.Matches(str, 0).Count == 1) // rectangular format is always 100x100
-            { res = AxCs.AddFromCatalog(ECrossSectionShape.cssRectangular, str); }
-            if (res <= 0)
-            {
-                res = AxCs.AddFromCatalog(ECrossSectionShape.cssI, str);
-                if (res > 0) { return res; }
-                else
-                {
-                    res = AxCs.AddFromCatalog(ECrossSectionShape.cssPipe, str);
-                    if (res > 0) { return res; }
-                    else
-                    {
-                        res = AxCs.AddFromCatalog(ECrossSectionShape.cssBox, str);
-                        if (res > 0) { return res; }
                         else
                         {
-                            res = AxCs.AddFromCatalog(ECrossSectionShape.cssRectangular, str);
-                            if (res > 0) { return res; }
-                            else
+                            //create new line                         
+                            newPt = axm[i].ln.StartPoint;
+                            if (Extra.GetPointID(AxModel.pts, newPt, 0.001) == -1)
                             {
-                                res = AxCs.AddFromCatalog(ECrossSectionShape.cssCircle, str);
-                                if (res > 0) { return res; }
-                                else return -1;
+                                AxModel.pts.Add(newPt);
+                                AxModel.AxNodes.Add(newPt.X, newPt.Y, newPt.Z); // add new points to Axis
+                            }
+                            newPt = axm[i].ln.EndPoint;
+                            if (Extra.GetPointID(AxModel.pts, newPt, 0.001) == -1)
+                            {
+                                AxModel.pts.Add(newPt);
+                                AxModel.AxNodes.Add(newPt.X, newPt.Y, newPt.Z); // add new points to Axis
+                            }
+                            AxModel.sIDs.Add(Extra.GetPointID(AxModel.pts, axm[i].ln.StartPoint, 0.001));
+                            AxModel.eIDs.Add(Extra.GetPointID(AxModel.pts, axm[i].ln.EndPoint, 0.001));
+                            if ((AxModel.sIDs[i] >= 0) && (AxModel.eIDs[i] >= 0))
+                            {
+                                AxModel.AxLines.Add(AxModel.sIDs[i], AxModel.eIDs[i], AxModel.geomType, AxModel.geomData);
+                                AxModel.AxLine = AxModel.AxLines.Item[i + 1 - notValidLineCount];
+                                string Tstr = axm[i].typ;
+                                if (Tstr.Equals("truss")) {
+                                    AxModel.AxLine.DefineAsTruss(MatID[i], SectID[i], ELineNonLinearity.lnlTensionAndCompression, 0);
+                                    AxModel.membProps.Add(new int[] { SectID[i], MatID[i], 0 });
+                                }
+                                else if (Tstr.Equals("beam")) {
+                                    AxModel.AxLine.DefineAsBeam(MatID[i], SectID[i], SectID[i], exc, exc);
+                                    AxModel.membProps.Add(new int[] { SectID[i], MatID[i], 1 });
+                                }
+                                else if (Tstr.Equals("rib")) {
+                                    AxModel.AxLine.DefineAsRib(MatID[i], SectID[i], SectID[i], exc, exc);
+                                    AxModel.membProps.Add(new int[] { SectID[i], MatID[i], 2 });
+                                };
+                                AxModel.lns.Add(axm[i].ln);
+                                AxModel.sw.Add(false);
                             }
                         }
                     }
+                    else { notValidLineCount++; }
                 }
+
+                //todo: endupdate only if no analysis
+                AxModel.AxModel_.EndUpdate();
+                //RExtendedDisplayParameters dispextpar = new RExtendedDisplayParameters();
+                //long lcID = 0;
+                //safearray secID = 0;
+                //AxModel.AxWindows.GetStaticDisplayParameters(1, dispextpar, lcID, secIDs);
+                //dispextpar
+                AxModel.AxApp.Visible = ELongBoolean.lbTrue;
+                AxModel.AxApp.BringToFront();
+
+                return new Dictionary<object, object>()
+                {
+                    {"AxModel", AxModel},
+                    {"Points", AxModel.pts},
+                    {"Lines", AxModel.lns},
+                };
             }
-            return res;
+
+            return new Dictionary<object, object>()
+            {
+                 {"AxModel", AxModel},
+                 {"Points", null},
+                 {"Lines", null},
+            };
+
         }
 
     }

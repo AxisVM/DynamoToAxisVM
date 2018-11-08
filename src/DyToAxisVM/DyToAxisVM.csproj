@@ -57,6 +57,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Analysis.cs" />
+    <Compile Include="ExtraFunctions.cs" />
+    <Compile Include="Preprocessor.cs" />
     <Compile Include="DyToAxisVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -86,6 +89,24 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
+    <None Include="Resources\DyToAxisVM.Load.SelfWeight.Small.png" />
+    <None Include="Resources\DyToAxisVM.Load.SelfWeight.Large.png" />
+    <None Include="Resources\DyToAxisVM.Extra.PtListIndex.Small.png" />
+    <None Include="Resources\DyToAxisVM.Extra.PtListIndex.Large.png" />
+    <None Include="Resources\DyToAxisVM.Analysis.Analysis.Small.png" />
+    <None Include="Resources\DyToAxisVM.Analysis.Analysis.Large.png" />
+    <None Include="Resources\DyToAxisVM.Extra.PtListIndexAtHeight.Small.png" />
+    <None Include="Resources\DyToAxisVM.Extra.PtListIndexAtHeight.Large.png" />
+    <None Include="Resources\DyToAxisVM.AxModel.AxModel.Small.png" />
+    <None Include="Resources\DyToAxisVM.AxModel.AxModel.Large.png" />
+    <None Include="Resources\DyToAxisVM.Support.NodalSupport.Small.png" />
+    <None Include="Resources\DyToAxisVM.Support.NodalSupport.Large.png" />
+    <None Include="Resources\DyToAxisVM.Support.NodalFixedSupport.Small.png" />
+    <None Include="Resources\DyToAxisVM.Support.NodalFixedSupport.Large.png" />
+    <None Include="Resources\DyToAxisVM.Support.NodalPinnedSupport.Small.png" />
+    <None Include="Resources\DyToAxisVM.Support.NodalPinnedSupport.Large.png" />
+    <None Include="Resources\DyToAxisVM.Load.PointLoad.Small.png" />
+    <None Include="Resources\DyToAxisVM.Load.PointLoad.Large.png" />
     <None Include="Resources\DyToAxisVM.ExportOptions.SendLines.Small.png" />
     <None Include="Resources\DyToAxisVM.ExportOptions.SendLines.Large.png" />
     <None Include="Resources\DyToAxisVM.Large.png" />
