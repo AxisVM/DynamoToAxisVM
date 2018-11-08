@@ -1,0 +1,1207 @@
+{
+  "Uuid": "9624c2f4-6f16-456f-876c-aa5ff17bdbe5",
+  "IsCustomNode": false,
+  "Description": null,
+  "Name": "Beam",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "CoreNodeModels.Input.BoolSelector, CoreNodeModels",
+      "NodeType": "BooleanInputNode",
+      "InputValue": false,
+      "Id": "32e2f36eee684d7d87d549f233281fdc",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "9437509fcf6e42279d4c32e070ae04be",
+          "Name": "",
+          "Description": "Boolean",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Selection between a true and false."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "Autodesk.DesignScript.Geometry.Point.ByCoordinates@double,double,double",
+      "Id": "a8b8be67d4674f909f73fd63c6bba6a8",
+      "Inputs": [
+        {
+          "Id": "fb9f0f125db04eb9b49b7c838114e72f",
+          "Name": "x",
+          "Description": "double\nDefault value : 0",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "04e7dd0d59b04dd6804e438d649bb5cc",
+          "Name": "y",
+          "Description": "double\nDefault value : 0",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "ef73b56b2f9b42b4bb396b6a4eb82870",
+          "Name": "z",
+          "Description": "double\nDefault value : 0",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "862ccddabc1840719df1c74ac850931b",
+          "Name": "Point",
+          "Description": "Point",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Form a Point given 3 cartesian coordinates\n\nPoint.ByCoordinates (x: double = 0, y: double = 0, z: double = 0): Point"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "Autodesk.DesignScript.Geometry.Point.ByCoordinates@double,double,double",
+      "Id": "f0c2ea69a32f4d78bea7039953ff6081",
+      "Inputs": [
+        {
+          "Id": "a66f1f3b5ece403a9cc2c7b3268a707d",
+          "Name": "x",
+          "Description": "double\nDefault value : 0",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "b607111fcc074b9d993cca3b8a3a83aa",
+          "Name": "y",
+          "Description": "double\nDefault value : 0",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "b337064502c74960a4ddbdd0f18d65a1",
+          "Name": "z",
+          "Description": "double\nDefault value : 0",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "67e6671a72d547689b22414b16d5e587",
+          "Name": "Point",
+          "Description": "Point",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Form a Point given 3 cartesian coordinates\n\nPoint.ByCoordinates (x: double = 0, y: double = 0, z: double = 0): Point"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "Autodesk.DesignScript.Geometry.Line.ByStartPointEndPoint@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point",
+      "Id": "8e9ab40ee2d042ecac241a79625e3ea4",
+      "Inputs": [
+        {
+          "Id": "078b339eedf14a9798d92a02413377bd",
+          "Name": "startPoint",
+          "Description": "Point",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "8c9ead69dcc940949c438d76db691099",
+          "Name": "endPoint",
+          "Description": "Point",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "45f3662a134c47859f12dba601e8b8db",
+          "Name": "Line",
+          "Description": "Line",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Creates a straight Line between two input Points.\n\nLine.ByStartPointEndPoint (startPoint: Point, endPoint: Point): Line"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.BoolSelector, CoreNodeModels",
+      "NodeType": "BooleanInputNode",
+      "InputValue": false,
+      "Id": "b526d7912df4448db0d6e8265b5145d1",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "8b4a0f10b3f8465d90b343ee46c06dab",
+          "Name": "",
+          "Description": "Boolean",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Selection between a true and false."
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.StringInput, CoreNodeModels",
+      "NodeType": "StringInputNode",
+      "InputValue": "IPE 240",
+      "Id": "18c6d33eb970469a87c01b46eede2f7e",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "408fe81f39fb434f96061948ad722f71",
+          "Name": "",
+          "Description": "String",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Creates a string."
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.StringInput, CoreNodeModels",
+      "NodeType": "StringInputNode",
+      "InputValue": "S 235",
+      "Id": "47974a3855be4b99aaab9f2cace2fa6e",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "ce0d7a92fe7a4843ae26319bc952d16f",
+          "Name": "",
+          "Description": "String",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Creates a string."
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.StringInput, CoreNodeModels",
+      "NodeType": "StringInputNode",
+      "InputValue": "beam",
+      "Id": "1cfb563f56d04802b997dee7ba3b34e3",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "9ff86d7b75e14629b8b8ddf0ab200dc7",
+          "Name": "",
+          "Description": "String",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Creates a string."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "DyToAxisVM.ExportOptions.SendLines@DyToAxisVM.AxModel,bool,Autodesk.DesignScript.Geometry.Line[]",
+      "Id": "165ee982874146319543d9695bec8f24",
+      "Inputs": [
+        {
+          "Id": "71b6a171fa3b4d0694df6fdd0ae21b45",
+          "Name": "AxModel",
+          "Description": "Model to export.\n\nAxModel",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "0217586fd07f45d497467bf96cc6d915",
+          "Name": "b",
+          "Description": "Export starts if true.\n\nbool",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "f7a320ce1331477095e555cca81320c6",
+          "Name": "ln",
+          "Description": "List of lines to export.\n\nLine[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "485b76af86a240d4b14d8d32e4d0fa21",
+          "Name": "AxModel",
+          "Description": "exported model AxModel if export was successful",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "3fba5866b1ac464c88a9fbc2f3dfbd26",
+          "Name": "Points",
+          "Description": "Points in AxModel",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "979d856f271b4f6986521593a36a6a11",
+          "Name": "Lines",
+          "Description": "Lines in AxModel",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Send (export) lines to AxisVM if b=true.\n\nExportOptions.SendLines (AxModel: AxModel, b: bool, ln: Line[]): var[]..[]"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "DyToAxisVM.ExportOptions.SendMembers@DyToAxisVM.AxModel,bool,DyToAxisVM.AxMember[]",
+      "Id": "99e80f9bb41d461b9d2d3b5101554ae8",
+      "Inputs": [
+        {
+          "Id": "6cdeeeb614fa4d56a6f2998afc11ecb8",
+          "Name": "AxModel",
+          "Description": "Model to export.\n\nAxModel",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "fe1a4cba4f8b40b5bdef38d0d57c5eb4",
+          "Name": "b",
+          "Description": "Export starts if true.\n\nbool",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "8951cc7e2ba14a81a1c6854e9b535375",
+          "Name": "axm",
+          "Description": "List of AxisVM structural members to export\n\nAxMember[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "0e1dbd32ca644fada1176c6242c6067b",
+          "Name": "AxModel",
+          "Description": "exported model AxModel if export was successful",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "c35c445d27a54b98a96d00495d86309d",
+          "Name": "Points",
+          "Description": "Points in AxModel",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "6c1fb891efdf4859b75cd1e00d5fb19c",
+          "Name": "Lines",
+          "Description": "Lines in AxModel",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Send (export) structural members to AxisVM if b=true. Each structural member should have a cross-section, material and element type (truss, beam, or rib).\n\nExportOptions.SendMembers (AxModel: AxModel, b: bool, axm: AxMember[]): var[]..[]"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.DoubleSlider, CoreNodeModels",
+      "NodeType": "NumberInputNode",
+      "NumberType": "Double",
+      "MaximumValue": 100.0,
+      "MinimumValue": 0.0,
+      "StepValue": 0.1,
+      "InputValue": 27.1,
+      "Id": "e3893d09b51e4b0a9c1952f5398a8ae3",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "7a744e72b9fa4ba3a1c6fefe401d01cd",
+          "Name": "",
+          "Description": "Double",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A slider that produces numeric values."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "DyToAxisVM.AxMember.ByProperties@Autodesk.DesignScript.Geometry.Line,string,string,string",
+      "Id": "ccf067d6b588486bae4d71c4938aca2c",
+      "Inputs": [
+        {
+          "Id": "9e9c59dc81134721a5e6795f30d57619",
+          "Name": "line",
+          "Description": "Line",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "e645db15814f49328b16e81e09248938",
+          "Name": "material",
+          "Description": "Material name e.g., S235\n\nstring\nDefault value : \"S 235\"",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "51cbb7132d36414bb2c4cdfd4a1f3cb4",
+          "Name": "crossSection",
+          "Description": "Cross-section name e.g., IPE 240\n\nstring\nDefault value : \"IPE 240\"",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "e6b749f545884a6b8981e825efb45ec4",
+          "Name": "type",
+          "Description": "Element type (truss, beam or rib)\n\nstring\nDefault value : \"beam\"",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "bd6b96d809d645bf840f956c0927fcbe",
+          "Name": "AxMember",
+          "Description": "AxisVM structural member (AxMember)",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Create structural member defined by a line, a cross-section, material, and type (truss, beam, rib).\n\nAxMember.ByProperties (line: Line, material: string = \"S 235\", crossSection: string = \"IPE 240\", type: string = \"beam\"): AxMember"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.BoolSelector, CoreNodeModels",
+      "NodeType": "BooleanInputNode",
+      "InputValue": false,
+      "Id": "fc4bc97432a94f1380f91834c0b87784",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "8a9eaa8762b34179a02ae169ab783c95",
+          "Name": "",
+          "Description": "Boolean",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Selection between a true and false."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "DyToAxisVM.AxModel.StartAxModel",
+      "Id": "f9e6a1d7b25445f9a9d9be5ddc989083",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "a7c584ae4c414b72a675976ae11d5302",
+          "Name": "AxModel",
+          "Description": "AxModel",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Starts new AxisVM model. After the export, if AxisVM is closed manually, this model is deleted. To start a new model, delete this node and add a new StartAxModel node.\n\nAxModel.StartAxModel ( ): AxModel"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "DyToAxisVM.AxModel.StartAxModel",
+      "Id": "1705fd84726f41debc6957099fe1ff65",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "637d3306066d4193bc5a065df4e8ee44",
+          "Name": "AxModel",
+          "Description": "AxModel",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Starts new AxisVM model. After the export, if AxisVM is closed manually, this model is deleted. To start a new model, delete this node and add a new StartAxModel node.\n\nAxModel.StartAxModel ( ): AxModel"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "DyToAxisVM.Load.SelfWeight@DyToAxisVM.AxModel,string",
+      "Id": "ef92afd73c154ad8969ebc6f2c07d00d",
+      "Inputs": [
+        {
+          "Id": "351e9eed189743859a5a7a6562d9490d",
+          "Name": "AxModel",
+          "Description": "AxisVM model to add load to\n\nAxModel",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "95fc92ac563e4734a468b5e632527388",
+          "Name": "lcName",
+          "Description": "name of load case (existing or new)\n\nstring\nDefault value : \"ST1\"",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "40e16c76dfa54d38a3f83769d7dee3dd",
+          "Name": "AxModel",
+          "Description": "AxisVM model",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Add self-weight to all AxMembers.\n\nLoad.SelfWeight (AxModel: AxModel, lcName: string = \"ST1\"): var[]..[]"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "DyToAxisVM.Support.PinnedNodalSupport@DyToAxisVM.AxModel,int[]",
+      "Id": "5f1087a2ae4442f8b79f556dc1ef1a60",
+      "Inputs": [
+        {
+          "Id": "4a494da0757a432eba810bc4b756892a",
+          "Name": "AxModel",
+          "Description": "AxisVM model to add support to\n\nAxModel",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "7ed06883015c4998a273e0f1820dcf73",
+          "Name": "ptID",
+          "Description": "list of nodes to add a pinned support to\n\nint[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "c5321b22f41345daa91f9b325096e600",
+          "Name": "AxModel",
+          "Description": "AxisVM model",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "a38d53bf1b2b4b7496cb534170aead2b",
+          "Name": "new",
+          "Description": "node IDs of the new supports added in the latest run to AxModel",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "d912637acbc14b8c85ecddeb5e815451",
+          "Name": "all",
+          "Description": "node IDs of all supports in AxModel",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Add pinned nodal supports (displacements are restircted, rotations are free).\n\nSupport.PinnedNodalSupport (AxModel: AxModel, ptID: int[]): var[]..[]"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "DyToAxisVM.Analysis.LinearAnalysis@DyToAxisVM.AxModel,bool",
+      "Id": "d58e312a7c4f4190a91bd0190a027f75",
+      "Inputs": [
+        {
+          "Id": "0aee60a0da064615ba58749b8e141bf7",
+          "Name": "AxModel",
+          "Description": "Model to analyse.\n\nAxModel",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "898c58827f744f219d2b8059a395002b",
+          "Name": "b",
+          "Description": "Analysis starts if true. Set this to false while changing geometry, if the structural model is large, since analysis might take a long time.\n\nbool\nDefault value : true",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "1c59503e0a5f44e4929f26f432f4b76a",
+          "Name": "AxModel",
+          "Description": "AxModel if successful",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Run linear structural analysis. WIP - Work In Progress\n\nAnalysis.LinearAnalysis (AxModel: AxModel, b: bool = true): AxModel"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.BoolSelector, CoreNodeModels",
+      "NodeType": "BooleanInputNode",
+      "InputValue": false,
+      "Id": "2657bb1153554b4cb62e3e5aaf7b747c",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "65bcb53c66e248efbf32ef3b04344c76",
+          "Name": "",
+          "Description": "Boolean",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Selection between a true and false."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "DyToAxisVM.Extra.PtListIndex@Autodesk.DesignScript.Geometry.Point[],Autodesk.DesignScript.Geometry.Point[],double",
+      "Id": "260fe466ffda440aa9f218f733e7d9a3",
+      "Inputs": [
+        {
+          "Id": "e195f396f0024625a7b97930f986c3c8",
+          "Name": "pts",
+          "Description": "list of points to search in\n\nPoint[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "7b69abc86ac94e63830d13b5310dc553",
+          "Name": "pt",
+          "Description": "point to search for in the list\n\nPoint[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "feee7bc5957141daadd7a14110dce67f",
+          "Name": "e",
+          "Description": "tolerance for the differenc of the coordinate values\n\ndouble\nDefault value : 1E-05",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "dd23cb7129714689b1002451d546abd1",
+          "Name": "int[]",
+          "Description": "int[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "index of a point (pt) in a list of points (pts)\n\nExtra.PtListIndex (pts: Point[], pt: Point[], e: double = 1E-05): int[]"
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "9437509fcf6e42279d4c32e070ae04be",
+      "End": "0217586fd07f45d497467bf96cc6d915",
+      "Id": "dd520f4952a846919bc9acdb205f9191"
+    },
+    {
+      "Start": "862ccddabc1840719df1c74ac850931b",
+      "End": "078b339eedf14a9798d92a02413377bd",
+      "Id": "75fe282024f5478bb6e28ac85e4d8692"
+    },
+    {
+      "Start": "67e6671a72d547689b22414b16d5e587",
+      "End": "8c9ead69dcc940949c438d76db691099",
+      "Id": "660eec60900d45ce88192e1052839a14"
+    },
+    {
+      "Start": "45f3662a134c47859f12dba601e8b8db",
+      "End": "9e9c59dc81134721a5e6795f30d57619",
+      "Id": "18711519116c4751b5186592ff117f7c"
+    },
+    {
+      "Start": "8b4a0f10b3f8465d90b343ee46c06dab",
+      "End": "fe1a4cba4f8b40b5bdef38d0d57c5eb4",
+      "Id": "f18af26bd8c5433a84c2d080718fe750"
+    },
+    {
+      "Start": "408fe81f39fb434f96061948ad722f71",
+      "End": "51cbb7132d36414bb2c4cdfd4a1f3cb4",
+      "Id": "272bc648f4254cedbfc7d50b0667bf5f"
+    },
+    {
+      "Start": "ce0d7a92fe7a4843ae26319bc952d16f",
+      "End": "e645db15814f49328b16e81e09248938",
+      "Id": "bf4ba2f33cbe4d499a913aa4ef8c7f47"
+    },
+    {
+      "Start": "9ff86d7b75e14629b8b8ddf0ab200dc7",
+      "End": "e6b749f545884a6b8981e825efb45ec4",
+      "Id": "15d03ec6149444b4bb89203742663527"
+    },
+    {
+      "Start": "0e1dbd32ca644fada1176c6242c6067b",
+      "End": "351e9eed189743859a5a7a6562d9490d",
+      "Id": "b822a7f3248c41829bc5832918290b18"
+    },
+    {
+      "Start": "0e1dbd32ca644fada1176c6242c6067b",
+      "End": "4a494da0757a432eba810bc4b756892a",
+      "Id": "ae55b7af86c6454b93d083274f9b42c9"
+    },
+    {
+      "Start": "c35c445d27a54b98a96d00495d86309d",
+      "End": "e195f396f0024625a7b97930f986c3c8",
+      "Id": "f127d81eb9de41028cabcdb2337d0114"
+    },
+    {
+      "Start": "c35c445d27a54b98a96d00495d86309d",
+      "End": "7b69abc86ac94e63830d13b5310dc553",
+      "Id": "cb8cda5997844615b58b7a549b130eb0"
+    },
+    {
+      "Start": "7a744e72b9fa4ba3a1c6fefe401d01cd",
+      "End": "a66f1f3b5ece403a9cc2c7b3268a707d",
+      "Id": "23081e7426914663a8f163b0088bf209"
+    },
+    {
+      "Start": "bd6b96d809d645bf840f956c0927fcbe",
+      "End": "8951cc7e2ba14a81a1c6854e9b535375",
+      "Id": "511c2e892e154d6aa2b35410da14392c"
+    },
+    {
+      "Start": "a7c584ae4c414b72a675976ae11d5302",
+      "End": "71b6a171fa3b4d0694df6fdd0ae21b45",
+      "Id": "9e6c1e5d8b8a42739807ff8ee9b679a9"
+    },
+    {
+      "Start": "a7c584ae4c414b72a675976ae11d5302",
+      "End": "6cdeeeb614fa4d56a6f2998afc11ecb8",
+      "Id": "adfa757c8c8343a999981690d112dd71"
+    },
+    {
+      "Start": "c5321b22f41345daa91f9b325096e600",
+      "End": "0aee60a0da064615ba58749b8e141bf7",
+      "Id": "db86b01b9234417584481887e0f6b87c"
+    },
+    {
+      "Start": "65bcb53c66e248efbf32ef3b04344c76",
+      "End": "898c58827f744f219d2b8059a395002b",
+      "Id": "d7a9d8e44cba4b31a3441844717d671d"
+    },
+    {
+      "Start": "dd23cb7129714689b1002451d546abd1",
+      "End": "7ed06883015c4998a273e0f1820dcf73",
+      "Id": "582ae143b7d04b17905a26b3726b2e2d"
+    }
+  ],
+  "Dependencies": [],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": true,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.0.1.5055",
+      "RunType": "Automatic",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -6.765693615871422,
+      "EyeY": 14.533667670601837,
+      "EyeZ": 64.84251729960819,
+      "LookX": 13.415693234401695,
+      "LookY": -14.533667670601837,
+      "LookZ": -64.84251729960819,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "Boolean",
+        "Id": "32e2f36eee684d7d87d549f233281fdc",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1498.4890725756261,
+        "Y": 449.18277813023212
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Point.ByCoordinates",
+        "Id": "a8b8be67d4674f909f73fd63c6bba6a8",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 221.04761327771735,
+        "Y": 456.39774976874031
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Point.ByCoordinates",
+        "Id": "f0c2ea69a32f4d78bea7039953ff6081",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 221.68516902154101,
+        "Y": 615.901151194708
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Line.ByStartPointEndPoint",
+        "Id": "8e9ab40ee2d042ecac241a79625e3ea4",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 532.78551177861846,
+        "Y": 556.61135203952733
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Boolean",
+        "Id": "b526d7912df4448db0d6e8265b5145d1",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1499.3570046653931,
+        "Y": 701.26639524285008
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "String",
+        "Id": "18c6d33eb970469a87c01b46eede2f7e",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1007.8552456846568,
+        "Y": 769.62621531412071
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "String",
+        "Id": "47974a3855be4b99aaab9f2cace2fa6e",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1009.0781647042801,
+        "Y": 701.61016598063475
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "String",
+        "Id": "1cfb563f56d04802b997dee7ba3b34e3",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1007.0258201793241,
+        "Y": 843.92212272850918
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "ExportOptions.SendLines",
+        "Id": "165ee982874146319543d9695bec8f24",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1661.1532036128556,
+        "Y": 450.74001605270206
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "ExportOptions.SendMembers",
+        "Id": "99e80f9bb41d461b9d2d3b5101554ae8",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1666.3055896085073,
+        "Y": 766.31639752847479
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Number Slider - span of beam",
+        "Id": "e3893d09b51e4b0a9c1952f5398a8ae3",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -161.26655656357048,
+        "Y": 616.5299314257453
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "AxMember.ByProperties",
+        "Id": "ccf067d6b588486bae4d71c4938aca2c",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1177.9262132982089,
+        "Y": 702.61914586132946
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Boolean",
+        "Id": "fc4bc97432a94f1380f91834c0b87784",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1175.7754775210008,
+        "Y": 286.24255890365822
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "AxModel.StartAxModel",
+        "Id": "f9e6a1d7b25445f9a9d9be5ddc989083",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1004.5542801310767,
+        "Y": 487.78984918573826
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "AxModel.StartAxModel",
+        "Id": "1705fd84726f41debc6957099fe1ff65",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1002.869421515838,
+        "Y": 258.16255761087467
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Load.SelfWeight",
+        "Id": "ef92afd73c154ad8969ebc6f2c07d00d",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 2085.1611568332933,
+        "Y": 803.291084153905
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Support.PinnedNodalSupport",
+        "Id": "5f1087a2ae4442f8b79f556dc1ef1a60",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 2272.0243523507338,
+        "Y": 584.05832762274269
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Analysis.LinearAnalysis",
+        "Id": "d58e312a7c4f4190a91bd0190a027f75",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 3005.8228960075426,
+        "Y": 611.66963959939528
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Boolean",
+        "Id": "2657bb1153554b4cb62e3e5aaf7b747c",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 2801.6817119910065,
+        "Y": 660.7758208051589
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Extra.PtListIndex",
+        "Id": "260fe466ffda440aa9f218f733e7d9a3",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 2079.919142650815,
+        "Y": 585.03842935378009
+      }
+    ],
+    "Annotations": [
+      {
+        "Id": "c4ae2927bc564f46b1def0bfb1dacac4",
+        "Title": "Export lines",
+        "Nodes": [
+          "32e2f36eee684d7d87d549f233281fdc",
+          "165ee982874146319543d9695bec8f24"
+        ],
+        "Left": 1488.4890725756261,
+        "Top": 395.84944479689881,
+        "Width": 408.66413103722948,
+        "Height": 199.89057125580325,
+        "FontSize": 36.0,
+        "InitialTop": 449.18277813023212,
+        "InitialHeight": 146.55723792246994,
+        "TextblockHeight": 43.333333333333336,
+        "Background": "#FFB9F9E1"
+      },
+      {
+        "Id": "7f9bef5ed57149359bdbd44c2abc2e5b",
+        "Title": "Export structural elements",
+        "Nodes": [
+          "b526d7912df4448db0d6e8265b5145d1",
+          "99e80f9bb41d461b9d2d3b5101554ae8"
+        ],
+        "Left": 1489.3570046653931,
+        "Top": 604.59972857618345,
+        "Width": 412.94858494311416,
+        "Height": 306.71666895229134,
+        "FontSize": 36.0,
+        "InitialTop": 701.26639524285008,
+        "InitialHeight": 210.05000228562471,
+        "TextblockHeight": 86.666666666666671,
+        "Background": "#FFA4E1FF"
+      },
+      {
+        "Id": "bce2a43a7b6f41b3b4610e91c6cf5951",
+        "Title": "Create structural member: AxMember",
+        "Nodes": [
+          "18c6d33eb970469a87c01b46eede2f7e",
+          "47974a3855be4b99aaab9f2cace2fa6e",
+          "1cfb563f56d04802b997dee7ba3b34e3",
+          "ccf067d6b588486bae4d71c4938aca2c"
+        ],
+        "Left": 997.02582017932411,
+        "Top": 604.94349931396812,
+        "Width": 452.90039311888484,
+        "Height": 306.64529008120775,
+        "FontSize": 36.0,
+        "InitialTop": 701.61016598063475,
+        "InitialHeight": 261.72510865886227,
+        "TextblockHeight": 86.666666666666671,
+        "Background": "#FFA4E1FF"
+      },
+      {
+        "Id": "973dd3f950fe4c05bfd9c6759394f344",
+        "Title": "Create a line",
+        "Nodes": [
+          "a8b8be67d4674f909f73fd63c6bba6a8",
+          "f0c2ea69a32f4d78bea7039953ff6081",
+          "8e9ab40ee2d042ecac241a79625e3ea4",
+          "e3893d09b51e4b0a9c1952f5398a8ae3"
+        ],
+        "Left": -171.26655656357048,
+        "Top": 403.064416435407,
+        "Width": 918.05206834218893,
+        "Height": 357.836734759301,
+        "FontSize": 36.0,
+        "InitialTop": 456.39774976874031,
+        "InitialHeight": 305.132181657005,
+        "TextblockHeight": 43.333333333333336,
+        "Background": "#FFB5B5B5"
+      },
+      {
+        "Id": "faaae285cf264b9f82ea5179d72b3647",
+        "Title": "-------------------------------------------------\r\nTo start the export:\r\n(1) Start a new AxModel with the StartAxModel node\r\n(2) connect the AxModel and a Boolean input node to the AxisVM Export nodes (SendLines or SendMembers) and set it to True. An AxisVM window will soon open with the exported model in it. In case of larger models, this may take several seconds.\r\n-------------------------------------------------",
+        "Nodes": [
+          "fc4bc97432a94f1380f91834c0b87784",
+          "1705fd84726f41debc6957099fe1ff65"
+        ],
+        "Left": 992.869421515838,
+        "Top": -227.17077572245864,
+        "Width": 715.43666666666672,
+        "Height": 581.08000129278355,
+        "FontSize": 36.0,
+        "InitialTop": 258.16255761087467,
+        "InitialHeight": 173.08000129278355,
+        "TextblockHeight": 475.33333333333331,
+        "Background": "#FFFFAA45"
+      },
+      {
+        "Id": "7a38f90626e14202a25d7c20d674ac28",
+        "Title": "Start Axis model",
+        "Nodes": [
+          "f9e6a1d7b25445f9a9d9be5ddc989083"
+        ],
+        "Left": 994.55428013107667,
+        "Top": 391.12318251907158,
+        "Width": 174.0,
+        "Height": 189.66666666666669,
+        "FontSize": 36.0,
+        "InitialTop": 487.78984918573826,
+        "InitialHeight": 145.0,
+        "TextblockHeight": 86.666666666666671,
+        "Background": "#FFFFAA45"
+      },
+      {
+        "Id": "3879d3989ac84c25a73376c66dd40411",
+        "Title": "Add load",
+        "Nodes": [
+          "ef92afd73c154ad8969ebc6f2c07d00d"
+        ],
+        "Left": 2075.1611568332933,
+        "Top": 749.95775082057162,
+        "Width": 246.0,
+        "Height": 172.33333333333337,
+        "FontSize": 36.0,
+        "InitialTop": 803.291084153905,
+        "InitialHeight": 145.0,
+        "TextblockHeight": 43.333333333333336,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "da0e7f93616e4bc998dc445bf1c22b72",
+        "Title": "_________________________________\r\nRun linear static analysis\r\n(WIP - Work in Progress)\r\nIf this is turned on, the analysis will rerun after updating the model.  \r\n\r\nUpdating may be: changing geometric parameters, structural member properties, adding load and supports. \r\nNOTE: If changing the topology (e.g., number of beams), start a new AxModel.\r\n_________________________________",
+        "Nodes": [
+          "d58e312a7c4f4190a91bd0190a027f75",
+          "2657bb1153554b4cb62e3e5aaf7b747c"
+        ],
+        "Left": 2791.6817119910065,
+        "Top": -46.330360400604718,
+        "Width": 503.02000000000004,
+        "Height": 774.77284787243025,
+        "FontSize": 36.0,
+        "InitialTop": 611.66963959939528,
+        "InitialHeight": 194.10618120576362,
+        "TextblockHeight": 648.0,
+        "Background": "#FFD4B6DB"
+      },
+      {
+        "Id": "e9757e70c12f40babfb5f205f0c5c726",
+        "Title": "_____________________________________\r\nAdd supports\r\n\r\nFor ptID, create a list of integers with the supported node IDs. -NOTE: AxisVM node IDs start with 1, not zero! \r\n\r\nPtListIndex node helps in creating the list of integers: it finds the node IDs of the supported nodes (pt) in the list of nodes of the AxModel (pts)\r\n_____________________________________",
+        "Nodes": [
+          "5f1087a2ae4442f8b79f556dc1ef1a60",
+          "260fe466ffda440aa9f218f733e7d9a3"
+        ],
+        "Left": 2069.919142650815,
+        "Top": -30.608339043923934,
+        "Width": 562.78000000000009,
+        "Height": 760.646768397704,
+        "FontSize": 36.0,
+        "InitialTop": 584.05832762274269,
+        "InitialHeight": 175.98010173103739,
+        "TextblockHeight": 604.66666666666663,
+        "Background": "#FFC1D676"
+      }
+    ],
+    "X": 155.14502816857407,
+    "Y": 244.22874241477723,
+    "Zoom": 0.18329206454428174
+  }
+}
