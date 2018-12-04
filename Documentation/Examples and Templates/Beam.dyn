@@ -247,13 +247,13 @@
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
-      "FunctionSignature": "DyToAxisVM.ExportOptions.SendLines@bool,Autodesk.DesignScript.Geometry.Line[]",
+      "FunctionSignature": "DyToAxisVM.ExportOptions.SendLines@DyToAxisVM.AxModel,bool,Autodesk.DesignScript.Geometry.Line[]",
       "Id": "165ee982874146319543d9695bec8f24",
       "Inputs": [
         {
           "Id": "71b6a171fa3b4d0694df6fdd0ae21b45",
-          "Name": "b",
-          "Description": "bool",
+          "Name": "AxModel",
+          "Description": "Model to export.\n\nAxModel",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -261,8 +261,17 @@
         },
         {
           "Id": "0217586fd07f45d497467bf96cc6d915",
+          "Name": "b",
+          "Description": "Export starts if true.\n\nbool",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "d900479d9d9e4bd3bc00712cab804b26",
           "Name": "ln",
-          "Description": "Line[]",
+          "Description": "List of lines to export.\n\nLine[]",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -272,8 +281,26 @@
       "Outputs": [
         {
           "Id": "485b76af86a240d4b14d8d32e4d0fa21",
-          "Name": "bool",
-          "Description": "bool",
+          "Name": "AxModel",
+          "Description": "exported model AxModel if export was successful",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "5f5e23cbdce848918749ab0ebcc456be",
+          "Name": "Points",
+          "Description": "Points in AxModel",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "cae40545e1374e09b768a8391d5675c9",
+          "Name": "Lines",
+          "Description": "Lines in AxModel",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -281,18 +308,18 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "ExportOptions.SendLines (b: bool, ln: Line[]): bool"
+      "Description": "Send (export) lines to AxisVM if b=true.\n\nExportOptions.SendLines (AxModel: AxModel, b: bool, ln: Line[]): var[]..[]"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
-      "FunctionSignature": "DyToAxisVM.ExportOptions.SendMembers@bool,DyToAxisVM.AxMember[]",
+      "FunctionSignature": "DyToAxisVM.ExportOptions.SendMembers@DyToAxisVM.AxModel,bool,DyToAxisVM.AxMember[]",
       "Id": "99e80f9bb41d461b9d2d3b5101554ae8",
       "Inputs": [
         {
           "Id": "6cdeeeb614fa4d56a6f2998afc11ecb8",
-          "Name": "b",
-          "Description": "bool",
+          "Name": "AxModel",
+          "Description": "Model to export.\n\nAxModel",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -300,8 +327,17 @@
         },
         {
           "Id": "fe1a4cba4f8b40b5bdef38d0d57c5eb4",
+          "Name": "b",
+          "Description": "Export starts if true.\n\nbool",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "4054bd570a0b4c90a4ee2e41fa220307",
           "Name": "axm",
-          "Description": "AxMember[]",
+          "Description": "List of AxisVM structural members to export\n\nAxMember[]",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -311,8 +347,26 @@
       "Outputs": [
         {
           "Id": "0e1dbd32ca644fada1176c6242c6067b",
-          "Name": "bool",
-          "Description": "bool",
+          "Name": "AxModel",
+          "Description": "exported model AxModel if export was successful",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "918fe85ec388490588897fc5ed8dd900",
+          "Name": "Points",
+          "Description": "Points in AxModel",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "342611f383f64f749300ded9d5f4a333",
+          "Name": "Lines",
+          "Description": "Lines in AxModel",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -320,7 +374,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "ExportOptions.SendMembers (b: bool, axm: AxMember[]): bool"
+      "Description": "Send (export) structural members to AxisVM if b=true. Each structural member should have a cross-section, material and element type (truss, beam, or rib).\n\nExportOptions.SendMembers (AxModel: AxModel, b: bool, axm: AxMember[]): var[]..[]"
     },
     {
       "ConcreteType": "CoreNodeModels.Input.DoubleSlider, CoreNodeModels",
@@ -364,7 +418,7 @@
         {
           "Id": "e645db15814f49328b16e81e09248938",
           "Name": "material",
-          "Description": "string\nDefault value : \"S 235\"",
+          "Description": "Material name e.g., S235\n\nstring\nDefault value : \"S 235\"",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -373,7 +427,7 @@
         {
           "Id": "51cbb7132d36414bb2c4cdfd4a1f3cb4",
           "Name": "crossSection",
-          "Description": "string\nDefault value : \"IPE 240\"",
+          "Description": "Cross-section name e.g., IPE 240\n\nstring\nDefault value : \"IPE 240\"",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -382,7 +436,7 @@
         {
           "Id": "e6b749f545884a6b8981e825efb45ec4",
           "Name": "type",
-          "Description": "string\nDefault value : \"beam\"",
+          "Description": "Element type (truss, beam or rib)\n\nstring\nDefault value : \"beam\"",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -393,7 +447,7 @@
         {
           "Id": "bd6b96d809d645bf840f956c0927fcbe",
           "Name": "AxMember",
-          "Description": "AxMember",
+          "Description": "AxisVM structural member (AxMember)",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -401,7 +455,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "AxMember.ByProperties (line: Line, material: string = \"S 235\", crossSection: string = \"IPE 240\", type: string = \"beam\"): AxMember"
+      "Description": "Create structural member defined by a line, a cross-section, material, and type (truss, beam, rib).\n\nAxMember.ByProperties (line: Line, material: string = \"S 235\", crossSection: string = \"IPE 240\", type: string = \"beam\"): AxMember"
     },
     {
       "ConcreteType": "CoreNodeModels.Input.BoolSelector, CoreNodeModels",
@@ -422,13 +476,53 @@
       ],
       "Replication": "Disabled",
       "Description": "Selection between a true and false."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "DyToAxisVM.AxModel.StartAxModel",
+      "Id": "56b592749d354c1c9a1fd38649e875c5",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "ab4d11bf08f74ad39baf63ca5e3975fb",
+          "Name": "AxModel",
+          "Description": "AxModel",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Starts new AxisVM model. After the export, if AxisVM is closed manually, this model is deleted. To start a new model, delete this node and add a new StartAxModel node.\n\nAxModel.StartAxModel ( ): AxModel"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "DyToAxisVM.AxModel.StartAxModel",
+      "Id": "2d4aa0f4007547a28ed6ffb34ef61bb8",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "d94f2b1f06064bfba8654a66cb4e9e61",
+          "Name": "AxModel",
+          "Description": "AxModel",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Starts new AxisVM model. After the export, if AxisVM is closed manually, this model is deleted. To start a new model, delete this node and add a new StartAxModel node.\n\nAxModel.StartAxModel ( ): AxModel"
     }
   ],
   "Connectors": [
     {
       "Start": "9437509fcf6e42279d4c32e070ae04be",
-      "End": "71b6a171fa3b4d0694df6fdd0ae21b45",
-      "Id": "87721d1d9e174ccf8740f8fb1263aab4"
+      "End": "0217586fd07f45d497467bf96cc6d915",
+      "Id": "27b2747f77314de2b745039df7056356"
     },
     {
       "Start": "862ccddabc1840719df1c74ac850931b",
@@ -442,18 +536,18 @@
     },
     {
       "Start": "45f3662a134c47859f12dba601e8b8db",
-      "End": "0217586fd07f45d497467bf96cc6d915",
-      "Id": "8aa01a1a4cc34d318daddc68d273a48c"
-    },
-    {
-      "Start": "45f3662a134c47859f12dba601e8b8db",
       "End": "9e9c59dc81134721a5e6795f30d57619",
       "Id": "18711519116c4751b5186592ff117f7c"
     },
     {
+      "Start": "45f3662a134c47859f12dba601e8b8db",
+      "End": "d900479d9d9e4bd3bc00712cab804b26",
+      "Id": "613f85af7fc94ba6b9cb5c0f4018b7d1"
+    },
+    {
       "Start": "8b4a0f10b3f8465d90b343ee46c06dab",
-      "End": "6cdeeeb614fa4d56a6f2998afc11ecb8",
-      "Id": "d2e5fc32099440438ec2ae1e09f67cc9"
+      "End": "fe1a4cba4f8b40b5bdef38d0d57c5eb4",
+      "Id": "594abbdad0c64dbf9e06836a226511f5"
     },
     {
       "Start": "408fe81f39fb434f96061948ad722f71",
@@ -477,8 +571,18 @@
     },
     {
       "Start": "bd6b96d809d645bf840f956c0927fcbe",
-      "End": "fe1a4cba4f8b40b5bdef38d0d57c5eb4",
-      "Id": "c7b143f240eb41a58760dd93ae33a7c3"
+      "End": "4054bd570a0b4c90a4ee2e41fa220307",
+      "Id": "2b9a65563bf04d8cac72ca0d9a54a4bb"
+    },
+    {
+      "Start": "ab4d11bf08f74ad39baf63ca5e3975fb",
+      "End": "71b6a171fa3b4d0694df6fdd0ae21b45",
+      "Id": "5100576d48e94e6d95008b1199b8096f"
+    },
+    {
+      "Start": "ab4d11bf08f74ad39baf63ca5e3975fb",
+      "End": "6cdeeeb614fa4d56a6f2998afc11ecb8",
+      "Id": "0f0598da2af044f8bc90889c1f5fec07"
     }
   ],
   "Dependencies": [],
@@ -488,7 +592,7 @@
       "ScaleFactor": 1.0,
       "HasRunWithoutCrash": true,
       "IsVisibleInDynamoLibrary": true,
-      "Version": "2.0.1.5055",
+      "Version": "2.0.2.6826",
       "RunType": "Automatic",
       "RunPeriod": "1000"
     },
@@ -512,8 +616,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 1499.6832748993345,
-        "Y": 471.872622280688
+        "X": 1496.8095862229941,
+        "Y": 457.5041788989862
       },
       {
         "ShowGeometry": true,
@@ -552,8 +656,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 1499.3570046653931,
-        "Y": 701.26639524285008
+        "X": 2018.4021510698908,
+        "Y": 683.09413628776917
       },
       {
         "ShowGeometry": true,
@@ -562,8 +666,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 1007.8552456846568,
-        "Y": 761.09726595111658
+        "X": 1494.2010792620354,
+        "Y": 763.03770188216424
       },
       {
         "ShowGeometry": true,
@@ -572,8 +676,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 1009.0781647042801,
-        "Y": 701.61016598063475
+        "X": 1495.4239982816584,
+        "Y": 703.55060191168241
       },
       {
         "ShowGeometry": true,
@@ -582,8 +686,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 1007.0258201793241,
-        "Y": 818.335274639497
+        "X": 1493.3716537567025,
+        "Y": 820.27571057054467
       },
       {
         "ShowGeometry": true,
@@ -592,8 +696,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 1662.347405936564,
-        "Y": 473.42986020315794
+        "X": 1658.7788205814661,
+        "Y": 448.63796664009118
       },
       {
         "ShowGeometry": true,
@@ -602,8 +706,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 1666.3055896085073,
-        "Y": 766.31639752847479
+        "X": 2185.3507360130052,
+        "Y": 748.14413857339389
       },
       {
         "ShowGeometry": true,
@@ -622,8 +726,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 1207.3037055485561,
-        "Y": 703.5668069016632
+        "X": 1693.6495391259346,
+        "Y": 705.50724283271086
       },
       {
         "ShowGeometry": true,
@@ -632,8 +736,28 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 1224.1061334557874,
-        "Y": 318.880377772503
+        "X": 361.58273099925577,
+        "Y": 22.64577942837326
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "AxModel.StartAxModel",
+        "Id": "56b592749d354c1c9a1fd38649e875c5",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 998.69838621221515,
+        "Y": 447.10422445390975
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "AxModel.StartAxModel",
+        "Id": "2d4aa0f4007547a28ed6ffb34ef61bb8",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -145.11705527171466,
+        "Y": -66.55521568252334
       }
     ],
     "Annotations": [
@@ -644,15 +768,15 @@
           "32e2f36eee684d7d87d549f233281fdc",
           "165ee982874146319543d9695bec8f24"
         ],
-        "Left": 1489.6832748993345,
-        "Top": 418.872622280688,
-        "Width": 350.66413103722948,
-        "Height": 173.55723792246994,
+        "Left": 1486.8095862229941,
+        "Top": 395.30463330675786,
+        "Width": 407.969234358472,
+        "Height": 198.3333333333334,
         "FontSize": 36.0,
-        "InitialTop": 471.872622280688,
-        "InitialHeight": 147.41681599637337,
-        "TextblockHeight": 43.0,
-        "Background": "#FFB9F9E1"
+        "InitialTop": 448.63796664009118,
+        "InitialHeight": 146.55723792246994,
+        "TextblockHeight": 43.333333333333336,
+        "Background": "#FF71C6A8"
       },
       {
         "Id": "7f9bef5ed57149359bdbd44c2abc2e5b",
@@ -661,14 +785,14 @@
           "b526d7912df4448db0d6e8265b5145d1",
           "99e80f9bb41d461b9d2d3b5101554ae8"
         ],
-        "Left": 1489.3570046653931,
-        "Top": 605.26639524285008,
-        "Width": 381.94858494311416,
-        "Height": 280.05000228562471,
+        "Left": 2008.4021510698908,
+        "Top": 586.42746962110255,
+        "Width": 412.94858494311438,
+        "Height": 306.71666895229134,
         "FontSize": 36.0,
-        "InitialTop": 701.26639524285008,
+        "InitialTop": 683.09413628776917,
         "InitialHeight": 210.05000228562471,
-        "TextblockHeight": 86.0,
+        "TextblockHeight": 86.666666666666671,
         "Background": "#FFA4E1FF"
       },
       {
@@ -680,14 +804,14 @@
           "1cfb563f56d04802b997dee7ba3b34e3",
           "ccf067d6b588486bae4d71c4938aca2c"
         ],
-        "Left": 997.02582017932411,
-        "Top": 605.61016598063475,
-        "Width": 482.27788536923197,
-        "Height": 280.72510865886227,
+        "Left": 1483.3716537567025,
+        "Top": 606.88393524501578,
+        "Width": 482.27788536923208,
+        "Height": 281.05844199219558,
         "FontSize": 36.0,
-        "InitialTop": 701.61016598063475,
+        "InitialTop": 703.55060191168241,
         "InitialHeight": 261.72510865886227,
-        "TextblockHeight": 86.0,
+        "TextblockHeight": 86.666666666666671,
         "Background": "#FFA4E1FF"
       },
       {
@@ -700,34 +824,66 @@
           "e3893d09b51e4b0a9c1952f5398a8ae3"
         ],
         "Left": -171.26655656357048,
-        "Top": 403.39774976874031,
-        "Width": 917.05206834218893,
-        "Height": 357.50340142596764,
+        "Top": 403.064416435407,
+        "Width": 918.05206834218893,
+        "Height": 357.836734759301,
         "FontSize": 36.0,
         "InitialTop": 456.39774976874031,
         "InitialHeight": 305.132181657005,
-        "TextblockHeight": 43.0,
-        "Background": "#FFC1D676"
+        "TextblockHeight": 43.333333333333336,
+        "Background": "#FFD8D8D8"
       },
       {
         "Id": "a9673de817fa42ec979ce8b351d67016",
-        "Title": "-------------------------------------\r\nTo start the export, connect a Boolean input node to the AxisVM Export nodes (SendLines or SendMembers) and set it to True. An AxisVM window will soon open with the exported model in it. In case of larger models, this may take several seconds.\r\n-------------------------------------",
+        "Title": "-------------------------------------\r\nHOW TO GET STARTED\r\n\r\n2.\r\n\r\nTo start the export, connect a Boolean input node to the AxisVM Export nodes (SendLines or SendMembers) and set it to True. An AxisVM window will soon open with the exported model in it. In case of larger models, this may take several seconds.\r\n-------------------------------------",
         "Nodes": [
           "fc4bc97432a94f1380f91834c0b87784"
         ],
-        "Left": 1214.1061334557874,
-        "Top": -123.11962222749702,
+        "Left": 351.58273099925577,
+        "Top": -592.02088723829343,
         "Width": 542.67666666666673,
-        "Height": 510.0,
+        "Height": 682.33333333333337,
         "FontSize": 36.0,
-        "InitialTop": 318.880377772503,
-        "InitialHeight": 98.0,
-        "TextblockHeight": 432.0,
+        "InitialTop": 22.64577942837326,
+        "InitialHeight": 145.0,
+        "TextblockHeight": 604.66666666666663,
         "Background": "#FFFF7BAC"
+      },
+      {
+        "Id": "3878a2e675f845de8b9cc7e1a3013901",
+        "Title": "---------------------------------HOW TO GET STARTED\r\n\r\n1.\r\n\r\nWhen the geometry is defined, you can start creating the AxisVM model. For this, use the StartAxModel node. Connect this to any other AxisVM modelling node.\r\n---------------------------------",
+        "Nodes": [
+          "2d4aa0f4007547a28ed6ffb34ef61bb8"
+        ],
+        "Left": -155.11705527171466,
+        "Top": -595.22188234919,
+        "Width": 485.09000000000003,
+        "Height": 621.66666666666663,
+        "FontSize": 36.0,
+        "InitialTop": -66.55521568252334,
+        "InitialHeight": 123.0,
+        "TextblockHeight": 518.66666666666663,
+        "Background": "#FFFF7BAC"
+      },
+      {
+        "Id": "580a1f3861304d699911ebbcfcad562e",
+        "Title": "AxModel",
+        "Nodes": [
+          "56b592749d354c1c9a1fd38649e875c5"
+        ],
+        "Left": 988.69838621221515,
+        "Top": 393.77089112057644,
+        "Width": 174.0,
+        "Height": 146.33333333333331,
+        "FontSize": 36.0,
+        "InitialTop": 447.10422445390975,
+        "InitialHeight": 123.0,
+        "TextblockHeight": 43.333333333333336,
+        "Background": "#FFB9F9E1"
       }
     ],
-    "X": 552.17634988391,
-    "Y": 488.561267794018,
-    "Zoom": 0.91474159883972028
+    "X": -254.78781579366432,
+    "Y": 110.79790196567387,
+    "Zoom": 0.58697527330163357
   }
 }
