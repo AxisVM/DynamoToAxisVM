@@ -89,6 +89,8 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
+    <None Include="Resources\DyToAxisVM.Extra.PruneDuplicateLines.Small.png" />
+    <None Include="Resources\DyToAxisVM.Extra.PruneDuplicateLines.Large.png" />
     <None Include="Resources\DyToAxisVM.Load.SelfWeight.Small.png" />
     <None Include="Resources\DyToAxisVM.Load.SelfWeight.Large.png" />
     <None Include="Resources\DyToAxisVM.Extra.PtListIndex.Small.png" />

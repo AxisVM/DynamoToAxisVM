@@ -243,8 +243,8 @@ namespace DyToAxisVM
             return new Dictionary<object, object>()
             {
                  {"AxModel", AxModel},
-                 {"Points", null},
-                 {"Lines", null},
+                 {"Points", AxModel.pts},
+                 {"Lines", AxModel.lns},
             };
 
         }
@@ -414,8 +414,8 @@ namespace DyToAxisVM
             return new Dictionary<object, object>()
             {
                  {"AxModel", AxModel},
-                 {"Points", null},
-                 {"Lines", null},
+                 {"Points", AxModel.pts},
+                 {"Lines", AxModel.lns},
             };
 
         }

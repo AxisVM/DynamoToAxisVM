@@ -129,5 +129,51 @@ namespace DyToAxisVM
             return IDs;
         }
 
+        /// <summary>
+        /// Prune lines to exclude duplicates within tolerance of included lines.
+        /// </summary>
+        /// <param name="lns">list of lines to search in</param>
+        /// <param name="tolerance">tolerance for the differenc of the coordinate values</param>
+        public static List<Line> PruneDuplicateLines(List<Line> lns, double tolerance = 1e-5)
+        {
+            List<Line> pruned = new List<Line>();
+            bool bFound = false;
+            for (int i = 0; i < lns.Count; i++)
+            {
+                bFound = false;
+                Point s1;
+                Point s2;
+                Point e1;
+                Point e2;
+                for (int j = i + 1; j < lns.Count; j++)
+                {
+                    s1 = lns[i].StartPoint;
+                    e1 = lns[i].EndPoint;
+                    s2 = lns[j].StartPoint;
+                    e2 = lns[j].EndPoint;
+                    if ((IsSamePt(s1, s2, tolerance) && IsSamePt(e1, e2, tolerance)) ||
+                         (IsSamePt(s1, e2, tolerance) && IsSamePt(e1, s2, tolerance)))
+                    {
+                        bFound = true;
+                    }
+
+                }
+                if (bFound == false) { pruned.Add(lns[i]); }
+
+            }
+            return pruned;
+        }
+
+        [SupressImportIntoVM]
+        public static bool IsSamePt(Point p1, Point p2, double e)
+        {
+            if ((Math.Abs(p1.X - p2.X) < e) &&
+                (Math.Abs(p1.Y - p2.Y) < e) &&
+                (Math.Abs(p1.Z - p2.Z) < e))
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }
