@@ -56,7 +56,7 @@ namespace DyToAxisVM
         {
 
             //Show AxisVM GUI and setup AxisVM to remain opened when COM client finished
-            AxApp.CloseOnLastReleased = ELongBoolean.lbFalse; //Axis doesn't exit when script finishes
+            AxApp.CloseOnLastReleased = ELongBoolean.lbTrue; //Axis exits when script finishes
             AxApp.AskCloseOnLastReleased = ELongBoolean.lbFalse; //Show close dialog before exit
             AxApp.Visible = ELongBoolean.lbFalse; //set on lbFalse can improve speed
 
