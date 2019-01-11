@@ -1,0 +1,217 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DyToAxisVM</name>
+    </assembly>
+    <members>
+        <member name="T:DyToAxisVM.Analysis">
+            <summary>
+            Run linear structural analysis
+            WIP - Work In Progress
+            </summary>
+        </member>
+        <member name="M:DyToAxisVM.Analysis.#ctor">
+            <summary>
+            Private methods, such as this constructor,
+            will not be visible in the Dynamo library.
+            </summary>
+        </member>
+        <member name="M:DyToAxisVM.Analysis.LinearAnalysis(DyToAxisVM.AxModel,System.Boolean)">
+            <summary>
+            Run linear structural analysis. 
+            WIP - Work In Progress
+            </summary>
+            <param name="AxModel">Model to analyse.</param>
+            <param name = "b" > Analysis starts if true. Set this to false while changing geometry, if the structural model is large, since analysis might take a long time.</param>
+            <returns>AxModel if successful</returns>
+            <search>axisvm, analysis</search>
+        </member>
+        <member name="T:DyToAxisVM.Extra">
+            <summary>
+            additional functions that speeds up modelling in Dynamo, or functions not visible in Dynamo.
+            </summary>
+        </member>
+        <member name="M:DyToAxisVM.Extra.#ctor">
+            <summary>
+            Private methods, such as this constructor,
+            will not be visible in the Dynamo library.
+            </summary>
+        </member>
+        <member name="M:DyToAxisVM.Extra.GetPointID(System.Collections.Generic.List{Autodesk.DesignScript.Geometry.Point},Autodesk.DesignScript.Geometry.Point,System.Double)">
+            <summary>
+            get ID of point p in list L, return -1 if the point is not in the list
+            </summary>
+        </member>
+        <member name="M:DyToAxisVM.Extra.GetCrossSection(System.String,System.StringComparison,AxisVM.AxisVMCrossSections)">
+            <summary>
+            return the cross-section family (e.g., I) of the used crooss-section (e.g. IPE 240)
+            </summary>
+        </member>
+        <member name="M:DyToAxisVM.Extra.PtListIndex(System.Collections.Generic.List{Autodesk.DesignScript.Geometry.Point},System.Collections.Generic.List{Autodesk.DesignScript.Geometry.Point},System.Double)">
+            <summary>
+            index of a point (pt) in a list of points (pts)
+            </summary>
+            <param name="pts">list of points to search in</param>
+            <param name="pt">point to search for in the list</param>
+            <param name="e">tolerance for the differenc of the coordinate values</param>
+        </member>
+        <member name="M:DyToAxisVM.Extra.PtListIndexAtHeight(System.Collections.Generic.List{Autodesk.DesignScript.Geometry.Point},System.Double,System.Double)">
+            <summary>
+            Indeces of points at given height (Z) in a list of points (pts). Returns -1 if the point is not in the list. 
+            </summary>
+            <param name="pts">list of points to search in</param>
+            <param name="Z">height</param>
+            <param name="e">tolerance for the differenc of the coordinate values</param>
+        </member>
+        <member name="M:DyToAxisVM.Extra.PruneDuplicateLines(System.Collections.Generic.List{Autodesk.DesignScript.Geometry.Line},System.Double)">
+            <summary>
+            Prune lines to exclude duplicates within tolerance of included lines.
+            </summary>
+            <param name="lns">list of lines to search in</param>
+            <param name="tolerance">tolerance for the differenc of the coordinate values</param>
+        </member>
+        <member name="T:DyToAxisVM.Load">
+            <summary>
+            Load
+            </summary>
+        </member>
+        <member name="M:DyToAxisVM.Load.#ctor">
+            <summary>
+            Private methods, such as this constructor,
+            will not be visible in the Dynamo library.
+            </summary>
+        </member>
+        <member name="M:DyToAxisVM.Load.PointLoad(DyToAxisVM.AxModel,System.Collections.Generic.List{System.Int32},System.String,System.Double,System.Double,System.Double)">
+            <summary>
+            Add point load to a node.
+            </summary>
+            <param name="AxModel">AxisVM model to add load to</param>
+            <param name="ptID">list of nodes to add a fixed support to</param>
+            <param name="lcName">name of load case (existing or new)</param>
+            <param name="Fx">nodal load values in global coordinate system</param>
+            <param name="Fy">nodal load values in global coordinate system</param>
+            <param name="Fz">nodal load values in global coordinate system</param>
+            <returns>AxisVM model</returns>
+            <returns>load case names and node IDs of new nodal loads added in the latest run to AxModel</returns>
+            <returns>load case names and node IDs of all nodal loads in AxModel</returns>
+        </member>
+        <member name="M:DyToAxisVM.Load.SelfWeight(DyToAxisVM.AxModel,System.String)">
+            <summary>
+            Add self-weight to all AxMembers.
+            </summary>
+            <param name="AxModel">AxisVM model to add load to</param>
+            <param name="lcName">name of load case (existing or new)</param>
+            <returns>AxisVM model</returns>
+        </member>
+        <member name="T:DyToAxisVM.Support">
+            <summary>
+            Support
+            </summary>
+        </member>
+        <member name="M:DyToAxisVM.Support.#ctor">
+            <summary>
+            Private methods, such as this constructor,
+            will not be visible in the Dynamo library.
+            </summary>
+        </member>
+        <member name="M:DyToAxisVM.Support.NodalSupport(DyToAxisVM.AxModel,System.Collections.Generic.List{System.Int32},System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            Add nodal supports.
+            </summary>
+            <param name="AxModel">AxisVM model to add support to</param>
+            <param name="ptID">list of nodes to add a fixed support to.</param>
+            <param name="Rx">displacement support stiffness along global x axis</param>
+            <param name="Ry">displacement support stiffness along global y axis</param>
+            <param name="Rz">displacement support stiffness along global z axis</param>
+            <param name="Rxx">rotational support stiffness around global x axis</param>
+            <param name="Ryy">rotational support stiffness around global y axis</param>
+            <param name="Rzz">rotational support stiffness around global z axis</param>
+            <returns>AxisVM model</returns>
+            <returns>node IDs of the new supports added in the latest run to AxModel</returns>
+            <returns>node IDs of all supports in AxModel</returns>
+        </member>
+        <member name="M:DyToAxisVM.Support.PinnedNodalSupport(DyToAxisVM.AxModel,System.Collections.Generic.List{System.Int32})">
+            <summary>
+            Add pinned nodal supports (displacements are restircted, rotations are free).
+            </summary>
+            <param name="AxModel">AxisVM model to add support to</param>
+            <param name="ptID">list of nodes to add a pinned support to</param>
+            <returns>AxisVM model</returns>
+            <returns>node IDs of the new supports added in the latest run to AxModel</returns>
+            <returns>node IDs of all supports in AxModel</returns>
+        </member>
+        <member name="M:DyToAxisVM.Support.FixedNodalSupport(DyToAxisVM.AxModel,System.Collections.Generic.List{System.Int32})">
+            <summary>
+            Add fixed nodal supports (all displacements and rotations are restricted).
+            </summary>
+            <param name="AxModel">AxisVM model to add support to</param>
+            <param name="ptID">List of nodes to add a fixed support to.</param>
+            <returns>AxisVM model</returns>
+            <returns>node IDs of the new supports added in the latest run to AxModel</returns>
+            <returns>node IDs of all supports in AxModel</returns>
+        </member>
+        <member name="T:DyToAxisVM.AxModel">
+            <summary>
+            Axis VM model
+            </summary>
+        </member>
+        <member name="M:DyToAxisVM.AxModel.StartAxModel">
+            <summary>
+            Starts new AxisVM model. After the export, if AxisVM is closed manually, this model is deleted. To start a new model, delete this node and add a new StartAxModel node.
+            </summary>
+        </member>
+        <member name="T:DyToAxisVM.AxMember">
+            <summary>
+            Structural member defined by a line, a cross-section, material, and type (truss, beam, rib).
+            </summary>
+        </member>
+        <member name="M:DyToAxisVM.AxMember.ByProperties(Autodesk.DesignScript.Geometry.Line,System.String,System.String,System.String)">
+            <summary>
+            Create structural member defined by a line, a cross-section, material, and type (truss, beam, rib).
+            </summary>
+            <param name="line"></param>
+            <param name="material">Material name e.g., S235</param>
+            <param name="crossSection">Cross-section name e.g., IPE 240</param>
+            <param name="type">Element type (truss, beam or rib)</param>
+            <returns>AxisVM structural member (AxMember)</returns>
+            <search>axisvm, member</search>
+        </member>
+        <member name="T:DyToAxisVM.ExportOptions">
+            <summary>
+            Options for export
+            </summary>
+        </member>
+        <member name="M:DyToAxisVM.ExportOptions.#ctor">
+            <summary>
+            Private methods, such as this constructor,
+            will not be visible in the Dynamo library.
+            </summary>
+        </member>
+        <member name="M:DyToAxisVM.ExportOptions.SendLines(DyToAxisVM.AxModel,System.Boolean,System.Collections.Generic.List{Autodesk.DesignScript.Geometry.Line})">
+            <summary>
+            Send (export) lines to AxisVM if b=true.
+            </summary>
+            <param name="AxModel">Model to export.</param>
+            <param name="b">Export starts if true.</param>
+            <param name="ln">List of lines to export.</param>
+            <returns>exported model AxModel if export was successful</returns>
+            <returns>Points in AxModel</returns>
+            <returns>Lines in AxModel</returns>
+            <search>axisvm, export, line</search>
+        </member>
+        <member name="M:DyToAxisVM.ExportOptions.SendMembers(DyToAxisVM.AxModel,System.Boolean,System.Collections.Generic.List{DyToAxisVM.AxMember})">
+            <summary>
+            Send (export) structural members to AxisVM if b=true.
+            
+            Each structural member should have a cross-section, material and element type (truss, beam, or rib).
+            </summary>
+            <param name="AxModel">Model to export.</param>
+            <param name="b">Export starts if true.</param>
+            <param name="axm">List of AxisVM structural members to export</param>
+            <returns>exported model AxModel if export was successful</returns>
+            <returns>Points in AxModel</returns>
+            <returns>Lines in AxModel</returns>
+            <search>axisvm, export, member</search>
+        </member>
+    </members>
+</doc>

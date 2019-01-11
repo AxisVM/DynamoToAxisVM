@@ -1,0 +1,17 @@
+﻿<?xml version="1.0"?>
+<doc>
+  <assembly>
+    <name>DyToAxisVM</name>
+  </assembly>
+  <namespaces>
+    <!--Remap Namespaces-->
+    <namespace name="DyToAxisVM">
+      <category>AxisVM</category>
+    </namespace>
+  </namespaces>
+  <classes>
+    <!--Remap Class Names-->
+    <class name="AxisVM.AxModel" shortname="Model"/>
+    <class name="AxisVM.AxMember" shortname="Member"/>
+  </classes>
+</doc>
